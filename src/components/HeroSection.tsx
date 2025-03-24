@@ -11,8 +11,8 @@ const ParticlesContainer = styled.div`
   height: 100%;
   top: 0;
   left: 0;
-  z-index: -1;
-  background-color: #1d1d1d;
+  z-index: 1;
+  background-color: #111;
 `;
 
 const HeroSectionContainer = styled.section`
@@ -21,7 +21,8 @@ const HeroSectionContainer = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #111;
+  /* Make this transparent so the particles background shows */
+  background-color: transparent;
   color: white;
   font-family: Arial, sans-serif;
   padding-top: 60px;
@@ -51,34 +52,47 @@ export default function HeroSection() {
     script.onload = () => {
       window.particlesJS("particles-js", {
         particles: {
-          number: { value: 100, density: { enable: true, value_area: 800 } },
-          color: { value: "#ff0000" },
-          shape: { type: "circle", stroke: { width: 0, color: "#000000" } },
+          number: {
+            value: 80,
+            density: { enable: true, value_area: 800 },
+          },
+          color: {
+            value: ["#FFFFFF", "#A020F0"],
+          },
+          shape: {
+            type: "circle", 
+            stroke: { width: 0, color: "#000000" },
+          },
           opacity: {
-            value: 0.5,
+            value: 0.8,
             random: true,
             anim: {
               enable: true,
-              speed: 1,
-              opacity_min: 0.1,
+              speed: 0.8,
+              opacity_min: 0.2,
               sync: false,
             },
           },
           size: {
-            value: 5,
+            value: 4,
             random: true,
-            anim: { enable: false, speed: 40, size_min: 0.1, sync: false },
+            anim: {
+              enable: false,
+              speed: 30,
+              size_min: 0.1,
+              sync: false,
+            },
           },
           line_linked: {
             enable: true,
-            distance: 150,
-            color: "#ffffff",
-            opacity: 0.4,
-            width: 1,
+            distance: 120,
+            color: "#A020F0",
+            opacity: 0.6,
+            width: 2,
           },
           move: {
             enable: true,
-            speed: 6,
+            speed: 2,
             direction: "none",
             random: false,
             straight: false,
@@ -94,7 +108,7 @@ export default function HeroSection() {
             onclick: { enable: true, mode: "push" },
           },
           modes: {
-            repulse: { distance: 100, duration: 0.4 },
+            repulse: { distance: 150, duration: 0.4 },
             push: { particles_nb: 4 },
           },
         },
@@ -112,10 +126,9 @@ export default function HeroSection() {
 
   return (
     <HeroSectionContainer id="hero">
-      {/* Particle Background */}
       <ParticlesContainer id="particles-js" />
 
-      {/* Larger image, closer to top-right corner */}
+      {/* Larger image, near top-right corner */}
       <motion.div
         className="absolute top-8 right-8 md:top-16 md:right-16 z-10"
         initial={{ scale: 0, opacity: 0 }}
@@ -159,7 +172,7 @@ export default function HeroSection() {
         </Canvas>
       </div>
 
-      {/* Content */}
+      {/* Text & Main Content */}
       <div className="container mx-auto px-4 z-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -174,8 +187,7 @@ export default function HeroSection() {
             R.K.
           </h1>
           <p className="text-xl md:text-2xl text-[#F5F5F5] mb-8 max-w-2xl mx-auto">
-            Computer Science Student at University of Colombo School of
-            Computing
+            Computer Science Student at University of Colombo School of Computing
           </p>
           <p className="text-lg text-[#C0C0C0] mb-8 max-w-2xl mx-auto">
             Passionate about technology, innovation, and problem-solving
@@ -189,7 +201,10 @@ export default function HeroSection() {
                   .querySelector("#projects")
                   ?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="inline-block bg-gradient-to-r from-[#FF007F] to-[#A020F0] text-[#F5F5F5] font-medium py-3 px-8 rounded-full shadow-lg shadow-[#FF007F]/30 hover:shadow-[#A020F0]/50 transition-all border border-transparent hover:border-[#A020F0] hover:scale-105"
+              className="inline-block bg-gradient-to-r from-[#FF007F] to-[#A020F0] 
+                         text-[#F5F5F5] font-medium py-3 px-8 rounded-full shadow-lg
+                         shadow-[#FF007F]/30 hover:shadow-[#A020F0]/50 transition-all
+                         border border-transparent hover:border-[#A020F0] hover:scale-105"
             >
               View My Work
             </a>
