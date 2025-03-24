@@ -143,7 +143,13 @@ export default function ContactSection() {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2 bg-[#1A1A1A] border border-[#1A1A1A] rounded-md text-[#F5F5F5] focus:outline-none focus:ring-2 focus:ring-[#00FFFF] focus:border-transparent"
+                    className="w-full px-4 py-2 bg-[#1A1A1A] 
+                               border-2 border-[#FF007F]/90  
+                               rounded-md text-[#F5F5F5]
+                               transition-all duration-300 ease-in-out
+                               hover:shadow-md hover:shadow-[#00FFFF]/10
+                               focus:outline-none focus:ring-2 focus:ring-[#FF007F]
+                               focus:shadow-[0_0_8px_2px_#FF007F]"
                   />
                 </div>
 
@@ -161,7 +167,13 @@ export default function ContactSection() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-2 bg-[#1A1A1A] border border-[#1A1A1A] rounded-md text-[#F5F5F5] focus:outline-none focus:ring-2 focus:ring-[#00FFFF] focus:border-transparent"
+                    className="w-full px-4 py-2 bg-[#1A1A1A] 
+                               border-2 border-[#FF007F]/90 
+                               rounded-md text-[#F5F5F5]
+                               transition-all duration-300 ease-in-out
+                               hover:shadow-md hover:shadow-[#00FFFF]/10
+                               focus:outline-none focus:ring-2 focus:ring-[#a42766]
+                               focus:shadow-[0_0_8px_2px_#FF007F]"
                   />
                 </div>
 
@@ -179,14 +191,24 @@ export default function ContactSection() {
                     onChange={handleChange}
                     required
                     rows={5}
-                    className="w-full px-4 py-2 bg-[#1A1A1A] border border-[#1A1A1A] rounded-md text-[#F5F5F5] focus:outline-none focus:ring-2 focus:ring-[#00FFFF] focus:border-transparent"
+                    className="w-full px-4 py-2 bg-[#1A1A1A] 
+                               border-2 border-[#FF007F]/90  
+                               rounded-md text-[#F5F5F5]
+                               transition-all duration-300 ease-in-out
+                               hover:shadow-md hover:shadow-[#FF007F]/10
+                               focus:outline-none focus:ring-2 focus:ring-[#a42766]
+                               focus:shadow-[0_0_8px_2px_#FF007F]"
                   ></textarea>
                 </div>
 
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3 px-4 bg-gradient-to-r from-[#00FFFF] to-[#A020F0] text-[#F5F5F5] font-medium rounded-md hover:shadow-lg hover:shadow-[#00FFFF]/30 transition-all disabled:opacity-70 disabled:cursor-not-allowed border border-transparent hover:border-[#FF007F]"
+                  className="w-full py-3 px-4 bg-gradient-to-r from-[#FF007F] to-[#A020F0]
+                             text-[#F5F5F5] font-medium rounded-md hover:shadow-lg
+                             hover:shadow-[#FF007F]/30 transition-all
+                             disabled:opacity-70 disabled:cursor-not-allowed
+                             border border-transparent hover:border-[#FF007F]"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -215,7 +237,9 @@ export default function ContactSection() {
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center p-3 rounded-lg bg-[#1A1A1A] hover:bg-[#1A1A1A]/80 transition-colors border border-transparent hover:border-[#00FFFF]"
+                    className="flex items-center p-3 rounded-lg bg-[#1A1A1A]
+                               hover:bg-[#1A1A1A]/80 transition-colors
+                               border border-transparent hover:border-[#00FFFF]"
                     whileHover={{ x: 5 }}
                   >
                     <div className="w-10 h-10 rounded-full bg-[#0D0D0D] flex items-center justify-center mr-4 text-[#00FFFF]">
@@ -243,7 +267,11 @@ export default function ContactSection() {
                     whileHover={{ y: -5 }}
                     aria-label={link.label}
                   >
-                    <div className="w-12 h-12 rounded-full bg-[#1A1A1A] flex items-center justify-center mb-2 text-[#00FFFF] hover:bg-[#1A1A1A]/80 transition-colors border border-transparent hover:border-[#FF007F]">
+                    <div className="w-12 h-12 rounded-full bg-[#1A1A1A]
+                                 flex items-center justify-center mb-2 text-[#00FFFF]
+                                 hover:bg-[#1A1A1A]/80
+                                 transition-colors border border-transparent hover:border-[#FF007F]"
+                    >
                       {link.icon}
                     </div>
                     <span className="text-sm text-[#C0C0C0]">{link.label}</span>
