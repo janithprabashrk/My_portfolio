@@ -74,7 +74,7 @@ const projects: Project[] = [
     ],
     demoUrl:
       "https://mzqc-dashboard-by-janith-prabash-3ddebeaawhqfz88w8qgxan.streamlit.app/",
-    githubUrl: "https://github.com/janithprabashrk/mzqc-dashboard",
+    githubUrl: "https://mzqc-dashboard-by-janith-prabash-3ddebeaawhqfz88w8qgxan.streamlit.app/",
   },
 ];
 
@@ -156,7 +156,9 @@ export default function ProjectsShowcase() {
         >
           {filteredProjects.map((project) => (
             <motion.div key={project.id} variants={item} className="h-[450px]">
-              <ProjectCard project={project} />
+              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                <ProjectCard project={project} />
+              </a>
             </motion.div>
           ))}
         </motion.div>
