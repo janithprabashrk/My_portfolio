@@ -141,7 +141,7 @@ export default function HeroSection() {
           transition={{ type: "spring", stiffness: 300, damping: 10 }}
         >
           <img
-            src="/My_img.png"
+            src="/public/My_img.png"
             alt="Janith Prabash"
             className="w-64 md:w-80 lg:w-[32rem] h-auto object-cover object-top"
           />
