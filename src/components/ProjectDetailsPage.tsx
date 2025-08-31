@@ -2,6 +2,7 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { getProjectBySlug } from "../data/projects";
 import { Github, ExternalLink, ArrowLeft } from "lucide-react";
+import { AspectRatio } from "./ui/aspect-ratio";
 
 const ProjectDetailsPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -54,9 +55,79 @@ const ProjectDetailsPage: React.FC = () => {
               {project.fullDescription}
             </p>
           )}
-          <div className="mt-6">
-            <img src={project.image} alt={project.title} className="w-full rounded-lg border border-slate-800" />
-          </div>
+          {/* Media gallery */}
+          {(project.images && project.images.length > 0) || (project.videos && project.videos.length > 0) ? (
+            <div className="mt-8 space-y-6">
+              {project.videos && project.videos.length > 0 && (
+                <div className="space-y-4">
+                  <h3 className="font-semibold">Videos</h3>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    {project.videos.map((v, idx) => (
+                      <div key={idx} className="rounded-lg overflow-hidden border border-slate-800 bg-slate-900/50">
+                        <AspectRatio ratio={16 / 9}>
+                          {v.type === "youtube" || (!v.type && v.src.includes("youtube.com")) ? (
+                            <iframe
+                              src={v.src.replace("watch?v=", "embed/")}
+                              title={v.title || `Video ${idx + 1}`}
+                              className="w-full h-full"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              allowFullScreen
+                            />
+                          ) : v.type === "vimeo" || (!v.type && v.src.includes("vimeo.com")) ? (
+                            <iframe
+                              src={v.src.replace("vimeo.com/", "player.vimeo.com/video/")}
+                              title={v.title || `Video ${idx + 1}`}
+                              className="w-full h-full"
+                              allow="autoplay; fullscreen; picture-in-picture"
+                              allowFullScreen
+                            />
+                          ) : (
+                            <video
+                              controls
+                              poster={v.poster}
+                              className="w-full h-full object-cover"
+                            >
+                              <source src={v.src} />
+                            </video>
+                          )}
+                        </AspectRatio>
+                        {v.title && (
+                          <div className="px-3 py-2 text-sm text-slate-300 border-t border-slate-800">{v.title}</div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {project.images && project.images.length > 0 && (
+                <div className="space-y-4">
+                  <h3 className="font-semibold">Screenshots</h3>
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {project.images.map((img, idx) => (
+                      <div key={idx} className="rounded-lg overflow-hidden border border-slate-800 bg-slate-900/50">
+            <AspectRatio ratio={img.ratio ?? 16 / 9}>
+                          <img
+                            src={img.src}
+                            alt={img.alt || project.title}
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        </AspectRatio>
+                        {img.caption && (
+                          <div className="px-3 py-2 text-sm text-slate-300 border-t border-slate-800">{img.caption}</div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="mt-6">
+              <img src={project.image} alt={project.title} className="w-full rounded-lg border border-slate-800" />
+            </div>
+          )}
         </div>
         <aside>
           <div className="rounded-lg border border-slate-800 p-4 bg-slate-900/60">

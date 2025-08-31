@@ -75,6 +75,18 @@ export const projects: Project[] = [
       "🚀 We’re excited to announce the successful completion of our group project \"PrimeCare the Property Management System\"! 🎉 This web-based solution was developed using the PHP MVC framework and is designed to simplify and streamline the property renting and management process for users, property owners, agents, and managers.\n\n🙏 First and foremost, we extend our sincere gratitude to our supervisor Dr. Asanka P. Sayakkara and co-supervisor Mr. Thulasigaran Srimurugathas for their unwavering support, guidance, and encouragement throughout our project journey.\n\nOur system includes features such as property registration, booking, agent assignment, inspection reports, PayHere payment integration, in-app notifications. It also features role-based dashboards, detailed listings, document generation, and a responsive, user-friendly interface.\n\nThis project was a collaborative effort by our amazing team:\n👨‍💻 Wendt Edmund\n👩‍💻 Janith Prabash R.K.\n👨‍💻 Bimsara Imash\n👩‍💻 Nimna Pathum\n\nSpecial thanks to our mentors:\n🎓 Janitha Ratnayake\n🎓 Senal Punsara\n🎓 Sethni Disanayaka\n\nThis journey was a rewarding experience in teamwork, technical design, and real-world problem solving.",
     image: "/projects/primecare-cover.jpg",
     backdropImage: "/projects/primecare-cover.jpg",
+    images: [
+      { src: "/projects/primecare-cover.jpg", alt: "PrimeCare cover" },
+  { src: "/projects/primecare-landing.jpg", alt: "PrimeCare landing page", caption: "Welcome and featured properties" },
+  { src: "/projects/primecare-presentation.jpg", alt: "Project presentation slide", caption: "Project overview" },
+  { src: "/projects/primecare-finance-report.jpg", alt: "Finance report dashboard", caption: "Earnings, spending, profit dashboards" },
+  { src: "/projects/primecare-team.jpg", alt: "Team photo", caption: "Team behind PrimeCare", ratio: 3/4 },
+    ],
+    videos: [
+  { src: "/projects/Recording 2025-04-15 151231.mp4", type: "file", title: "PrimeCare Demo – 2025-04-15", poster: "/projects/primecare-landing.jpg" },
+  { src: "/projects/Recording 2025-04-16 104001.mp4", type: "file", title: "PrimeCare Demo – 2025-04-16", poster: "/projects/primecare-presentation.jpg" },
+  { src: "/projects/Recording 2025-04-17 090359.mp4", type: "file", title: "PrimeCare Demo – 2025-04-17", poster: "/projects/primecare-property-detail.jpg" },
+    ],
     technologies: ["PHP", "MVC", "MySQL", "PayHere", "Notifications", "Responsive UI"],
     demoUrl: "https://github.com/PrimeCare-groupProject/PrimeCare_php_mvc",
     githubUrl: "https://github.com/PrimeCare-groupProject/PrimeCare_php_mvc",
