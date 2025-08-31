@@ -36,6 +36,13 @@ const ProjectDetailsPage: React.FC = () => {
               <ArrowLeft size={18} className="mr-2" /> Back
             </Link>
             <h1 className="text-2xl md:text-3xl font-bold">{project.title}</h1>
+            {(project.period || project.affiliation) && (
+              <p className="text-slate-300 mt-1 text-sm">
+                {project.period}
+                {project.period && project.affiliation ? " • " : ""}
+                {project.affiliation}
+              </p>
+            )}
             <div className="mt-2 flex flex-wrap gap-2">
               {project.technologies.map((t) => (
                 <span key={t} className="px-2 py-1 text-xs rounded-full bg-[#1A1A1A] text-[#FF77AA]">

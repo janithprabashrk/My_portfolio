@@ -21,4 +21,6 @@ export interface Project {
     poster?: string; // poster image for file videos
     type?: "youtube" | "vimeo" | "file"; // optional hint
   }>;
+  period?: string; // e.g., "Feb 2024 – Aug 2024"
+  affiliation?: string; // e.g., "University of Colombo School of Computing"
 }
