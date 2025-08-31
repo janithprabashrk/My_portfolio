@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { certificates } from "../data/certificates";
 import CertificateCard from "./CertificateCard";
+import DotGrid from "./DotGrid";
 
 const CertificatesPage: React.FC = () => {
   const [q, setQ] = useState("");
@@ -23,16 +25,34 @@ const CertificatesPage: React.FC = () => {
   }, [q, activeTag]);
 
   return (
-    <div className="relative min-h-screen bg-slate-900 text-white">
-      <div className="container mx-auto px-4 py-24">
-        <header className="mb-8">
+    <div className="relative min-h-screen bg-slate-900 text-white overflow-hidden">
+      {/* Subtle interactive dot grid backdrop (paused offscreen/reduced-motion) */}
+    <div className="absolute inset-0 z-0 pointer-events-none">
+        <DotGrid
+          baseColor="#2b1e48"
+          activeColor="#A020F0"
+      opacity={0.8}
+          gap={32}
+          dotSize={14}
+        />
+      </div>
+      <div className="container mx-auto px-4 py-24 relative z-10">
+        <header className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <h1 className="text-3xl font-bold">
             Certificates
             <span className="ml-2 text-[#FF77AA]">({filtered.length})</span>
           </h1>
-          <p className="text-slate-400 mt-2">
-            A curated list of my certifications and credentials.
-          </p>
+          <div className="flex items-center gap-3">
+            <p className="text-slate-400 sm:mt-0 mt-1">
+              A curated list of my certifications and credentials.
+            </p>
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-[#FF007F] to-[#A020F0] text-[#F5F5F5] font-medium px-4 py-2 rounded-full shadow-lg shadow-[#FF007F]/30 hover:shadow-[#A020F0]/50 transition-all border border-transparent hover:border-[#A020F0] focus:outline-none focus:ring-2 focus:ring-[#A020F0]/60"
+            >
+              ← Back to Home
+            </Link>
+          </div>
         </header>
 
         <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between mb-6">
