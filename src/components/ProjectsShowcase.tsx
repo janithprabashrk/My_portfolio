@@ -1,82 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import ProjectCard, { Project } from "./ProjectCard";
-
-const projects: Project[] = [
-  {
-    id: 1,
-    title: "DJK's AutoHub - Automotive Marketplace",
-    description:
-      "A full-stack MERN luxury automotive marketplace connecting buyers and sellers of high-end vehicles with an intuitive, modern interface and smooth animations.",
-    image:
-      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&q=80",
-    technologies: [
-      "React.js",
-      "Node.js",
-      "MongoDB",
-      "Express",
-      "JWT",
-      "Tailwind CSS",
-      "Framer Motion",
-    ],
-    demoUrl: "https://github.com/janithprabashrk/DJKs-AutoHub",
-    githubUrl: "https://github.com/janithprabashrk/DJKs-AutoHub",
-  },
-  {
-    id: 2,
-    title: "TechHub by DJK",
-    description:
-      "A robust backend system for an Online Tech Store, built using Spring Boot. Provides powerful infrastructure to manage tech products, user roles, and secure transactions.",
-    image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80",
-    technologies: [
-      "Spring Boot 3",
-      "MySQL",
-      "JWT",
-      "Spring Security",
-      "Stripe Payment",
-    ],
-    demoUrl: "https://github.com/janithprabashrk/TechHub-By-DJK",
-    githubUrl: "https://github.com/janithprabashrk/TechHub-By-DJK",
-  },
-  {
-    id: 3,
-    title: "Smart Parking Alert System",
-    description:
-      "An intelligent IoT parking alert system that enhances safety while minimizing energy waste. Uses ESP32, ultrasonic sensor, LDR, and buzzer to adapt to ambient light conditions for optimized efficiency and automation.",
-    image:
-      "https://images.unsplash.com/photo-1621929747188-0b4dc28498d2?w=800&q=80",
-    technologies: [
-      "IoT",
-      "ESP32",
-      "Embedded Systems",
-      "Automation",
-      "Energy Efficiency",
-    ],
-    demoUrl:
-      "https://www.linkedin.com/posts/janithrk_iot-smartparking-embeddedsystems-activity-7297566226862485504-tFxJ?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEUqTvYBn-_zf-crSnOigEX9waZpU75xJ7c",
-    githubUrl:
-      "https://www.linkedin.com/posts/janithrk_iot-smartparking-embeddedsystems-activity-7297566226862485504-tFxJ?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEUqTvYBn-_zf-crSnOigEX9waZpU75xJ7c",
-  },
-  {
-    id: 4,
-    title: "mzQC Dashboard",
-    description:
-      "A Streamlit-based web application designed to visualize and analyze mass spectrometry quality control metrics from mzQC files. Provides an interactive interface to explore quality metrics, metadata, and run summaries.",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
-    technologies: [
-      "Python",
-      "Streamlit",
-      "Data Visualization",
-      "Bioinformatics",
-      "Mass Spectrometry",
-    ],
-    demoUrl:
-      "https://mzqc-dashboard-by-janith-prabash-3ddebeaawhqfz88w8qgxan.streamlit.app/",
-    githubUrl: "https://mzqc-dashboard-by-janith-prabash-3ddebeaawhqfz88w8qgxan.streamlit.app/",
-  },
-];
+import ProjectCard from "./ProjectCard";
+import { projects } from "../data/projects";
 
 const container = {
   hidden: { opacity: 0 },
@@ -99,14 +24,12 @@ const item = {
 
 export default function ProjectsShowcase() {
   const [activeFilter, setActiveFilter] = useState("All");
-  const filters = ["All", "React", "Python", "Node.js", "IoT"];
+  const filters = ["All", "React", "Python", "Node.js", "IoT", "PHP", "Spring Boot 3", "MongoDB", "Streamlit"];
 
   const filteredProjects =
     activeFilter === "All"
       ? projects
-      : projects.filter((project) =>
-          project.technologies.includes(activeFilter),
-        );
+  : projects.filter((project) => project.technologies.includes(activeFilter));
 
   return (
     <section id="projects" className="py-20 bg-[#0D0D0D]">
@@ -156,9 +79,7 @@ export default function ProjectsShowcase() {
         >
           {filteredProjects.map((project) => (
             <motion.div key={project.id} variants={item} className="h-[450px]">
-              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                <ProjectCard project={project} />
-              </a>
+              <ProjectCard project={project} />
             </motion.div>
           ))}
         </motion.div>

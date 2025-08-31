@@ -1,23 +1,14 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
-
-export interface Project {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  technologies: string[];
-  demoUrl?: string;
-  githubUrl?: string;
-}
+import type { Project } from "../types/project";
+import { Link } from "react-router-dom";
 
 interface ProjectCardProps {
   project: Project;
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
-  const [isFlipped, setIsFlipped] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
   // 3D tilt effect
@@ -46,18 +37,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
     y.set(0);
   };
 
-  const toggleFlip = () => {
-    setIsFlipped(!isFlipped);
-  };
-
-  const handleProjectClick = (e: React.MouseEvent) => {
-    if (!isFlipped) {
-      toggleFlip();
-    }
-  };
-
   const handleViewProject = (url: string, e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent card from flipping back
+    e.stopPropagation();
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
@@ -69,28 +50,28 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       onMouseLeave={handleMouseLeave}
       whileHover={{ scale: 1.02 }}
       style={{
-        rotateX: !isFlipped ? rotateX : 0,
-        rotateY: !isFlipped ? rotateY : 0,
+        rotateX,
+        rotateY,
         transformStyle: "preserve-3d",
       }}
     >
       <motion.div
-        className="w-full h-full rounded-xl overflow-hidden shadow-xl shadow-[#FF007F]/20 border border-[#1A1A1A] bg-[#0D0D0D] cursor-pointer"
-        animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{
-          duration: 0.6,
-          type: "spring",
-          stiffness: 300,
-          damping: 30,
-        }}
+        className="w-full h-full rounded-xl overflow-hidden shadow-xl shadow-[#FF007F]/20 border border-[#1A1A1A] bg-[#0D0D0D]"
+        transition={{ duration: 0.3 }}
         style={{ transformStyle: "preserve-3d" }}
-        onClick={handleProjectClick}
       >
-        {/* Front of card */}
-        <motion.div
-          className="absolute inset-0 p-6 flex flex-col backface-hidden"
-          style={{ backfaceVisibility: "hidden" }}
-        >
+        {/* Backdrop image layer */}
+        <div className="absolute inset-0 -z-10">
+          <img
+            src={project.backdropImage || project.image}
+            alt=""
+            aria-hidden
+            className="w-full h-full object-cover opacity-20 blur-sm"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0D0D0D]/60 to-[#0D0D0D]" />
+        </div>
+        {/* Card content */}
+        <motion.div className="absolute inset-0 p-6 flex flex-col">
           <div className="relative h-48 mb-4 overflow-hidden rounded-lg">
             <img
               src={project.image}
@@ -104,7 +85,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             {project.title}
           </h3>
           <p className="text-[#C0C0C0] text-sm flex-grow">
-            {project.description}
+            {project.shortDescription}
           </p>
 
           <div className="mt-4 flex flex-wrap gap-2">
@@ -118,41 +99,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             ))}
           </div>
 
-          <div className="mt-4 text-sm text-[#C0C0C0]">
-            Click to view details
-          </div>
-        </motion.div>
-
-        {/* Back of card */}
-        <motion.div
-          className="absolute inset-0 p-6 flex flex-col justify-center items-center backface-hidden bg-[#0D0D0D] text-[#F5F5F5]"
-          style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
-        >
-          <h3 className="text-xl font-bold mb-4 text-center">
-            {project.title}
-          </h3>
-          <p className="text-[#C0C0C0] text-center mb-6">
-            {project.description}
-          </p>
-
-          <div className="flex space-x-4">
-            {project.demoUrl && (
-              <a
-                href={project.demoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => handleViewProject(project.demoUrl!, e)}
-                className="flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-[#FF007F] to-[#A020F0] text-[#F5F5F5] font-medium hover:shadow-lg hover:shadow-[#FF007F]/30 transition-all border border-transparent hover:border-[#A020F0]"
-              >
-                <ExternalLink size={16} className="mr-2" />
-                {project.title.includes("mzQC")
-                  ? "Live Demo"
-                  : project.title.includes("Smart Parking")
-                    ? "LinkedIn"
-                    : "View Project"}
-              </a>
-            )}
-
+          <div className="mt-4 flex items-center gap-3">
+            <Link
+              to={`/projects/${project.slug}`}
+              className="flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-[#FF007F] to-[#A020F0] text-[#F5F5F5] font-medium hover:shadow-lg hover:shadow-[#FF007F]/30 transition-all border border-transparent hover:border-[#A020F0]"
+            >
+              <ExternalLink size={16} className="mr-2" />
+              View Project
+            </Link>
             {project.githubUrl && project.githubUrl.includes("github") && (
               <a
                 href={project.githubUrl}
@@ -166,13 +120,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               </a>
             )}
           </div>
-
-          <button
-            onClick={toggleFlip}
-            className="mt-6 text-sm text-[#C0C0C0] hover:text-[#F5F5F5] transition-colors"
-          >
-            Back to preview
-          </button>
         </motion.div>
       </motion.div>
     </motion.div>
