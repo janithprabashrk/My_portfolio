@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import styled from "styled-components";
 import SplashCursor from "./SplashCursor";
+import Hyperspeed, { hyperspeedPresets } from "./Hyperspeed";
 
 // Particles background removed in favor of SplashCursor effect
 
@@ -16,8 +17,8 @@ const HeroSectionContainer = styled.section`
   background-color: transparent;
   color: white;
   font-family: Arial, sans-serif;
-  padding-top: 60px;
   position: relative;
+  overflow: hidden; /* prevent any inner overscan from creating visual gaps */
 `;
 
 declare global {
@@ -50,7 +51,11 @@ export default function HeroSection() {
 
   return (
     <HeroSectionContainer id="hero">
-  {/* particles container removed */}
+  {/* Hero background effect (Hyperspeed) */}
+  <div className="absolute inset-0 z-0">
+    <Hyperspeed effectOptions={hyperspeedPresets.one} />
+  </div>
+  {/* Fluid cursor effect overlay (above backgrounds, below main content) */}
   {/* Fluid cursor effect overlay (above backgrounds, below main content) */}
   <SplashCursor />
 
@@ -78,7 +83,7 @@ export default function HeroSection() {
   {/* Background 3D Canvas removed for performance (ParticleBackground provides background) */}
 
       {/* Text & Main Content */}
-      <div className="container mx-auto px-4 z-10 text-center">
+  <div className="container mx-auto px-4 z-10 text-center pt-[60px]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

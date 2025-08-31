@@ -21,23 +21,24 @@ export type SplashCursorProps = {
 };
 
 function SplashCursor({
-  SIM_RESOLUTION = 128,
-  DYE_RESOLUTION = 1440,
-  CAPTURE_RESOLUTION = 512,
+  SIM_RESOLUTION = 96,
+  DYE_RESOLUTION = 640,
+  CAPTURE_RESOLUTION = 384,
   DENSITY_DISSIPATION = 3.5,
   VELOCITY_DISSIPATION = 2,
   PRESSURE = 0.1,
   PRESSURE_ITERATIONS = 20,
   CURL = 3,
   SPLAT_RADIUS = 0.2,
-  SPLAT_FORCE = 6000,
+  SPLAT_FORCE = 4000,
   SHADING = true,
-  COLOR_UPDATE_SPEED = 10,
+  COLOR_UPDATE_SPEED = 8,
   BACK_COLOR = { r: 0.5, g: 0, b: 0 },
   TRANSPARENT = true,
   className,
 }: SplashCursorProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const activeRef = useRef(true);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -996,9 +997,14 @@ function SplashCursor({
     let colorUpdateTimer = 0.0;
     let rafId = 0;
   let lastFrame = 0;
-  const maxFps = 45; // cap FPS for performance
+  const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  const maxFps = prefersReducedMotion ? 24 : 36; // lower cap for perf
 
     function updateFrame() {
+      if (!activeRef.current) {
+        rafId = requestAnimationFrame(updateFrame);
+        return;
+      }
       const now = performance.now();
       const elapsed = now - lastFrame;
       if (elapsed < 1000 / maxFps) {
@@ -1098,6 +1104,12 @@ function SplashCursor({
   initFramebuffers();
   updateFrame();
 
+    // Visibility pause/resume
+    const onVisibility = () => {
+      activeRef.current = !document.hidden && !prefersReducedMotion;
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("mousedown", onMouseDown);
@@ -1106,7 +1118,8 @@ function SplashCursor({
       document.body.removeEventListener("touchstart", onFirstTouchStart as any);
       window.removeEventListener("touchstart", onTouchStart);
       window.removeEventListener("touchmove", onTouchMove as any);
-      window.removeEventListener("touchend", onTouchEnd);
+  window.removeEventListener("touchend", onTouchEnd);
+  document.removeEventListener("visibilitychange", onVisibility);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [

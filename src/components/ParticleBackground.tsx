@@ -1,6 +1,5 @@
 import { useRef, useEffect } from "react";
-import { useFrame } from "@react-three/fiber";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 
@@ -11,9 +10,9 @@ interface ParticlesProps {
 }
 
 function Particles({
-  count = 2000,
+  count = 1200,
   color = "#FF007F",
-  size = 0.012,
+  size = 0.01,
 }: ParticlesProps) {
   const { viewport } = useThree();
   const pointsRef = useRef<THREE.Points>(null);
@@ -50,11 +49,11 @@ function Particles({
       }
     }
 
-    pointsRef.current.geometry.attributes.position.needsUpdate = true;
+  pointsRef.current.geometry.attributes.position.needsUpdate = true;
   });
 
   return (
-    <Points ref={pointsRef} limit={8000}>
+  <Points ref={pointsRef} limit={4000}>
       <PointMaterial
         transparent
         size={size}
@@ -90,13 +89,42 @@ function GridLines() {
 }
 
 export default function ParticleBackground() {
+  const activeRef = useRef(true);
+  const intervalRef = useRef<number | null>(null);
+  useEffect(() => {
+    const onVis = () => {
+      activeRef.current = !document.hidden;
+      // intervals controlled below
+    };
+    document.addEventListener("visibilitychange", onVis);
+    return () => {
+      document.removeEventListener("visibilitychange", onVis);
+      if (intervalRef.current) window.clearInterval(intervalRef.current);
+    };
+  }, []);
   return (
     <div className="fixed inset-0 bg-[#0D0D0D] -z-10">
-      <Canvas camera={{ position: [0, 0, 5], fov: 60 }} dpr={[0.75, 1]}>
+      <Canvas camera={{ position: [0, 0, 5], fov: 60 }} dpr={[0.6, 0.9]} frameloop="demand">
         <ambientLight intensity={0.2} />
+        <TickController intervalRef={intervalRef} />
         <Particles />
         <GridLines />
       </Canvas>
     </div>
   );
+}
+
+// Drives frames at a low, fixed rate to reduce CPU/GPU usage
+function TickController({ intervalRef }: { intervalRef: React.MutableRefObject<number | null> }) {
+  const { invalidate } = useThree();
+  useEffect(() => {
+    // ~20 FPS
+    const id = window.setInterval(() => invalidate(), 50);
+    intervalRef.current = id;
+    return () => {
+      if (intervalRef.current) window.clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    };
+  }, [invalidate, intervalRef]);
+  return null;
 }
