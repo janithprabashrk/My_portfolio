@@ -1,19 +1,10 @@
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Environment } from "@react-three/drei";
 import { ChevronDown } from "lucide-react";
 import styled from "styled-components";
+import SplashCursor from "./SplashCursor";
 
-const ParticlesContainer = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  background-color: #111;
-`;
+// Particles background removed in favor of SplashCursor effect
 
 const HeroSectionContainer = styled.section`
   height: 100vh;
@@ -37,96 +28,31 @@ declare global {
 
 export default function HeroSection() {
   const [scrollY, setScrollY] = useState(0);
+  const tickingRef = useRef(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const handleScroll = () => {
+      if (!tickingRef.current) {
+        tickingRef.current = true;
+        requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          tickingRef.current = false;
+        });
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true } as any);
+    return () => window.removeEventListener("scroll", handleScroll as any);
   }, []);
 
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js";
-    script.async = true;
-
-    script.onload = () => {
-      window.particlesJS("particles-js", {
-        particles: {
-          number: {
-            value: 80,
-            density: { enable: true, value_area: 800 },
-          },
-          color: {
-            value: ["#FFFFFF", "#A020F0"],
-          },
-          shape: {
-            type: "circle", 
-            stroke: { width: 0, color: "#000000" },
-          },
-          opacity: {
-            value: 0.8,
-            random: true,
-            anim: {
-              enable: true,
-              speed: 0.8,
-              opacity_min: 0.2,
-              sync: false,
-            },
-          },
-          size: {
-            value: 4,
-            random: true,
-            anim: {
-              enable: false,
-              speed: 30,
-              size_min: 0.1,
-              sync: false,
-            },
-          },
-          line_linked: {
-            enable: true,
-            distance: 120,
-            color: "#A020F0",
-            opacity: 0.6,
-            width: 2,
-          },
-          move: {
-            enable: true,
-            speed: 2,
-            direction: "none",
-            random: false,
-            straight: false,
-            out_mode: "out",
-            bounce: false,
-            attract: { enable: false, rotateX: 600, rotateY: 1200 },
-          },
-        },
-        interactivity: {
-          detect_on: "canvas",
-          events: {
-            onhover: { enable: true, mode: "repulse" },
-            onclick: { enable: true, mode: "push" },
-          },
-          modes: {
-            repulse: { distance: 150, duration: 0.4 },
-            push: { particles_nb: 4 },
-          },
-        },
-        retina_detect: true,
-      });
-    };
-
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
+  // Removed particles.js script setup
 
   const parallaxValue = scrollY * 0.3;
 
   return (
     <HeroSectionContainer id="hero">
-      <ParticlesContainer id="particles-js" />
+  {/* particles container removed */}
+  {/* Fluid cursor effect overlay (above backgrounds, below main content) */}
+  <SplashCursor />
 
       {/* Larger image, near top-right corner */}
       <motion.div
@@ -149,28 +75,7 @@ export default function HeroSection() {
         </motion.div>
       </motion.div>
 
-      {/* 3D Background Canvas */}
-      <div className="absolute inset-0 z-0">
-        <Canvas camera={{ position: [0, 0, 8], fov: 45 }}>
-          <ambientLight intensity={0.5} />
-          <spotLight
-            position={[10, 10, 10]}
-            angle={0.15}
-            penumbra={1}
-            intensity={1}
-            castShadow
-          />
-          <Suspense fallback={null}>
-            <Environment preset="city" />
-          </Suspense>
-          <OrbitControls
-            enableZoom={false}
-            enablePan={false}
-            autoRotate
-            autoRotateSpeed={0.5}
-          />
-        </Canvas>
-      </div>
+  {/* Background 3D Canvas removed for performance (ParticleBackground provides background) */}
 
       {/* Text & Main Content */}
       <div className="container mx-auto px-4 z-10 text-center">

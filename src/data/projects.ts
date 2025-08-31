@@ -99,7 +99,7 @@ export const projects: Project[] = [
     demoUrl:
       "https://mzqc-dashboard-by-janith-prabash-3ddebeaawhqfz88w8qgxan.streamlit.app/",
     githubUrl:
-      "https://mzqc-dashboard-by-janith-prabash-3ddebeaawhqfz88w8qgxan.streamlit.app/",
+      "https://github.com/janithprabashrk/mzqc-dashboard",
   },
   {
     id: 5,

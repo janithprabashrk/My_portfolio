@@ -11,9 +11,9 @@ interface ParticlesProps {
 }
 
 function Particles({
-  count = 5000,
+  count = 2000,
   color = "#FF007F",
-  size = 0.015,
+  size = 0.012,
 }: ParticlesProps) {
   const { viewport } = useThree();
   const pointsRef = useRef<THREE.Points>(null);
@@ -38,8 +38,6 @@ function Particles({
   useFrame((state) => {
     if (!pointsRef.current || !positions.current || !speeds.current) return;
 
-    const time = state.clock.getElapsedTime();
-
     for (let i = 0; i < count; i++) {
       const i3 = i * 3;
       positions.current[i3 + 1] += speeds.current[i];
@@ -56,10 +54,9 @@ function Particles({
   });
 
   return (
-    <Points ref={pointsRef} limit={10000}>
+    <Points ref={pointsRef} limit={8000}>
       <PointMaterial
         transparent
-        vertexColors
         size={size}
         sizeAttenuation
         depthWrite={false}
@@ -89,22 +86,13 @@ function GridLines() {
       Math.cos(state.clock.getElapsedTime() * 0.1) * 0.1;
   });
 
-  return (
-    <group ref={gridRef}>
-      <gridHelper
-        args={[30, 30, "#FF007F", "#A020F0"]}
-        position={[0, -3, 0]}
-        rotation={[Math.PI / 2, 0, 0]}
-      />
-      <gridHelper args={[30, 30, "#FF007F", "#A020F0"]} position={[0, -3, 0]} />
-    </group>
-  );
+  return null; // disable grid for performance
 }
 
 export default function ParticleBackground() {
   return (
     <div className="fixed inset-0 bg-[#0D0D0D] -z-10">
-      <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
+      <Canvas camera={{ position: [0, 0, 5], fov: 60 }} dpr={[0.75, 1]}>
         <ambientLight intensity={0.2} />
         <Particles />
         <GridLines />
