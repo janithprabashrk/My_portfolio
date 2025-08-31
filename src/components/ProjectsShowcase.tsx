@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import ProjectCard from "./ProjectCard";
 import { projects } from "../data/projects";
+import LetterGlitch from "./LetterGlitch";
 
 const container = {
   hidden: { opacity: 0 },
@@ -32,8 +33,21 @@ export default function ProjectsShowcase() {
   : projects.filter((project) => project.technologies.includes(activeFilter));
 
   return (
-    <section id="projects" className="py-20 bg-[#0D0D0D]">
-      <div className="container mx-auto px-4">
+  <section id="projects" className="relative py-20 bg-[#0D0D0D] overflow-hidden">
+      {/* Subtle, performant glitch backdrop */}
+    <div className="absolute inset-0 z-0">
+        <LetterGlitch
+          glitchColors={["#2b1e48", "#7b2cbf", "#FF007F", "#2AA9FF"]}
+          glitchSpeed={110}
+          smooth
+          outerVignette
+          centerVignette={false}
+      opacity={0.1}
+          className="bg-[#0D0D0D]"
+        />
+      </div>
+
+    <div className="container mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -70,7 +84,7 @@ export default function ProjectsShowcase() {
         </motion.div>
 
         {/* Projects Grid */}
-        <motion.div
+  <motion.div
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
           variants={container}
           initial="hidden"

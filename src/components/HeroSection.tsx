@@ -4,6 +4,7 @@ import { ChevronDown } from "lucide-react";
 import styled from "styled-components";
 import SplashCursor from "./SplashCursor";
 import Hyperspeed, { hyperspeedPresets } from "./Hyperspeed";
+import LetterGlitch from "./LetterGlitch";
 
 // Particles background removed in favor of SplashCursor effect
 
@@ -13,8 +14,8 @@ const HeroSectionContainer = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Make this transparent so the particles background shows */
-  background-color: transparent;
+  /* Darker blue background behind the Hyperspeed canvas */
+  background-color: #081226;
   color: white;
   font-family: Arial, sans-serif;
   position: relative;
@@ -54,6 +55,17 @@ export default function HeroSection() {
   {/* Hero background effect (Hyperspeed) */}
   <div className="absolute inset-0 z-0">
     <Hyperspeed effectOptions={hyperspeedPresets.one} />
+  </div>
+  {/* Glitch letters overlay as a subtle foreground (above background, below content) */}
+  <div className="absolute inset-0 z-[2] pointer-events-none">
+    <LetterGlitch
+      glitchColors={["#2b1e48", "#7b2cbf", "#FF007F", "#2AA9FF"]}
+      glitchSpeed={110}
+      smooth
+      outerVignette
+      centerVignette={false}
+      opacity={0.07}
+    />
   </div>
   {/* Fluid cursor effect overlay (above backgrounds, below main content) */}
   {/* Fluid cursor effect overlay (above backgrounds, below main content) */}
