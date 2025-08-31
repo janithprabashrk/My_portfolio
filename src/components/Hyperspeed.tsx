@@ -561,7 +561,7 @@ const Hyperspeed = ({ effectOptions = hyperspeedPresets.one, className }: Hypers
       rafId: number = 0;
       active: boolean = true;
 
-      constructor(container: HTMLDivElement, options: any = {}) {
+  constructor(container: HTMLDivElement, options: any = {}) {
         this.options = options || {};
         if (this.options.distortion == null) {
           this.options.distortion = {
@@ -569,9 +569,14 @@ const Hyperspeed = ({ effectOptions = hyperspeedPresets.one, className }: Hypers
             getDistortion: distortion_vertex,
           };
         }
-        this.container = container;
+  this.container = container;
   this.renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true, powerPreference: "low-power" });
-        this.renderer.setSize(container.offsetWidth, container.offsetHeight, false);
+  // Ensure the canvas CSS size is set so it visually fills the parent
+  const initW = Math.max(container.clientWidth, 1);
+  const initH = Math.max(container.clientHeight, 1);
+  this.renderer.setSize(initW, initH, true);
+  this.renderer.domElement.style.width = "100%";
+  this.renderer.domElement.style.height = "100%";
   // Clamp DPR for performance
   const dpr = Math.min(0.85, window.devicePixelRatio || 1);
         this.renderer.setPixelRatio(dpr);
@@ -580,7 +585,7 @@ const Hyperspeed = ({ effectOptions = hyperspeedPresets.one, className }: Hypers
 
         this.camera = new THREE.PerspectiveCamera(
           options.fov,
-          container.offsetWidth / Math.max(container.offsetHeight, 1),
+          Math.max(container.clientWidth, 1) / Math.max(container.clientHeight, 1),
           0.1,
           10000
         );
@@ -619,9 +624,9 @@ const Hyperspeed = ({ effectOptions = hyperspeedPresets.one, className }: Hypers
       }
 
       onWindowResize() {
-        const width = this.container.offsetWidth || 1;
-        const height = Math.max(this.container.offsetHeight, 1);
-        this.renderer.setSize(width, height);
+        const width = Math.max(this.container.clientWidth, 1);
+        const height = Math.max(this.container.clientHeight, 1);
+        this.renderer.setSize(width, height, true);
         this.camera.aspect = width / height;
         this.camera.updateProjectionMatrix();
         this.composer.setSize(width, height);
@@ -749,6 +754,8 @@ const Hyperspeed = ({ effectOptions = hyperspeedPresets.one, className }: Hypers
       }
 
       setSize(width: number, height: number, updateStyles?: boolean) {
+        // Keep renderer and composer in sync; update CSS size when requested
+        this.renderer.setSize(width, height, updateStyles !== false);
         this.composer.setSize(width, height, updateStyles as any);
       }
 
