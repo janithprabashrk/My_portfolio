@@ -10,6 +10,13 @@ interface TimelineItem {
 
 const timelineItems: TimelineItem[] = [
   {
+    year: "Nov 2025 - Present",
+    title: "Software Engineering Intern at WSO2",
+    description:
+      "Working on-site at WSO2 in Colombo, contributing to enterprise software solutions and gaining industry experience in software engineering.",
+    icon: <Briefcase size={20} />,
+  },
+  {
     year: "2024 - Present",
     title: "Design Master of UCSC CS Chapter",
     description:
