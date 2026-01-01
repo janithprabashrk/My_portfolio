@@ -157,7 +157,7 @@ export const projects: Project[] = [
     period: "Jun 2025 – Sep 2025",
     affiliation: "University of Colombo School of Computing",
     demoUrl: "http://stellarion.duckdns.org/",
-    githubUrl: "http://stellarion.duckdns.org/",
+    githubUrl: "https://github.com/STELLARION-gp",
   },
 ];
 
