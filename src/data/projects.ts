@@ -127,6 +127,38 @@ export const projects: Project[] = [
     demoUrl: "https://github.com/PrimeCare-groupProject/PrimeCare_php_mvc",
     githubUrl: "https://github.com/PrimeCare-groupProject/PrimeCare_php_mvc",
   },
+  {
+    id: 6,
+    slug: "stellarion-astronomy-ecosystem",
+    title: "Stellarion – Interactive Astronomy Ecosystem",
+    shortDescription:
+      "A web-based astronomy education and exploration platform developed as a third-year UCSC group project, featuring mentorship, live sessions, and interactive resources.",
+    fullDescription:
+      "🌌 Stellarion – Interactive Astronomy Ecosystem\n\nStellarion is a web-based astronomy education and exploration platform developed as a third-year UCSC group project, now deployed for educational purposes. It features mentorship, live sessions, night camps, the AstroHub (for news and events), and stargazing spot locators. The ecosystem supports a growing community of astronomy enthusiasts and provides interactive resources for learning and collaboration.\n\n👨‍💻 Role: Full-Stack Developer (Moderation & Media Systems)\n\n🚀 Explore: http://stellarion.duckdns.org/\n\n🔧 Key Technologies:\n• React, TypeScript\n• Node.js, PostgreSQL, Prisma\n• Firebase, Cloudinary\n• Google Fact-Checking APIs\n\n✨ Key Contributions:\n1. Built comprehensive moderation frameworks across multiple platform modules.\n2. Developed secure and optimized media upload workflows using Cloudinary.\n3. Integrated automated fact-checking and content validation using Google APIs.\n4. Collaborated closely with the team to deliver scalable, production-ready features.\n5. Authored technical documentation to streamline development and integration.\n\n👥 Team Members:\nNimna Pathum, Irumi Abeywickrama, Vidusha Ranmini, Senesh Gamage, Sasanka Wakista\n\n🎓 Guidance:\nDr. Asanka P. Sayakkara (Supervisor), Mr. Thulasigaran Srimurugathas (Co-supervisor)\n\n🌟 Impact:\nStellarion bridges gaps in astronomy education by connecting learners with mentors, events, and resources—empowering the next generation of stargazers.",
+    image: "/projects/stel main.jpg",
+    backdropImage: "/projects/Stell home.jpeg",
+    images: [
+      { src: "/projects/stel main.jpg", alt: "Stellarion main page" },
+      { src: "/projects/Stell home.jpeg", alt: "Stellarion home page" },
+      { src: "/projects/Stell Fact checker.jpeg", alt: "Stellarion fact-checker module" },
+      { src: "/projects/Mioderation crentre.jpeg", alt: "Stellarion moderation centre" },
+      { src: "/projects/Stell Media upload portal.jpeg", alt: "Stellarion media upload portal" },
+    ],
+    technologies: [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "Prisma",
+      "Firebase",
+      "Cloudinary",
+      "Google Fact-Checking APIs",
+    ],
+    period: "Jun 2025 – Sep 2025",
+    affiliation: "University of Colombo School of Computing",
+    demoUrl: "http://stellarion.duckdns.org/",
+    githubUrl: "http://stellarion.duckdns.org/",
+  },
 ];
 
 export function getProjectBySlug(slug: string): Project | undefined {
