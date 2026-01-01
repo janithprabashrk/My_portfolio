@@ -17,7 +17,14 @@ const timelineItems: TimelineItem[] = [
     icon: <Briefcase size={20} />,
   },
   {
-    year: "2024 - Present",
+    year: "2025 - Present",
+    title: "Treasurer of UCSC IEEE CS Chapter", 
+    description:
+      "Managing financial operations, budgeting for technical events, and ensuring transparency in fund allocation for the Computer Science Chapter.",
+    icon: <Briefcase size={20} />,
+  },
+  {
+    year: "2024 - 2025",
     title: "Design Master of UCSC CS Chapter",
     description:
       "Leading design initiatives and creative projects for the Computer Science Chapter.",
