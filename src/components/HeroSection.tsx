@@ -104,7 +104,7 @@ export default function HeroSection() {
         >
           <h1 className="text-5xl md:text-7xl font-bold mb-4 text-[#F5F5F5]">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF007F] to-[#A020F0]">
-              Janith Prabash
+              Janith Prabhash
             </span>{" "}
             R.K.
           </h1>
