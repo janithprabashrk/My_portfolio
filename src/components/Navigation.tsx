@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Home, Briefcase, Code, User, Mail, Menu, X } from "lucide-react";
-
+import { Home, Briefcase, Code, User, Mail, Menu, X, Download } from "lucide-react";
 interface NavItem {
   name: string;
   icon: React.ReactNode;
@@ -102,6 +101,20 @@ export default function Navigation({ onSectionChange }: NavigationProps) {
             ))}
           </ul>
         </nav>
+
+        {/* Resume Download Button */}
+        <div className="hidden md:block">
+          <motion.a
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            href="/public/CV/Janith_Prabhash_SE.pdf" // Put your actual file path here
+            download="Janith_CV_SE.pdf"
+            className="flex items-center gap-2 bg-[#00FFFF] text-[#0D0D0D] px-4 py-2 rounded-full font-bold text-sm transition-all hover:bg-[#00CCCC]"
+          >
+            <Download size={16} />
+            Download CV
+          </motion.a>
+        </div>
 
         {/* Mobile Menu Button */}
         <button
