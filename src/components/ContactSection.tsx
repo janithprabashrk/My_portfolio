@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Github, Linkedin, Twitter,Globe } from "lucide-react";
+import { SiHackerrank } from '@icons-pack/react-simple-icons';
 import emailjs from "@emailjs/browser";
 
 export default function ContactSection() {
@@ -77,7 +78,7 @@ export default function ContactSection() {
       label: "LinkedIn",
     },
     {
-      icon: <Twitter size={24} />,
+      icon: <SiHackerrank size={24} />,
       href: "https://www.hackerrank.com/profile/janithprabash941",
       label: "HackerRank",
     },
