@@ -109,7 +109,8 @@ export default function HeroSection() {
             R.K.
           </h1>
           <p className="text-xl md:text-2xl text-[#F5F5F5] mb-8 max-w-2xl mx-auto">
-            Computer Science Student at University of Colombo School of Computing
+            Software Engineering Intern at <span className="text-[#FF5000] font-bold">WSO2</span> 
+            <span className="text-[#C0C0C0] block text-lg mt-1">APIM Team</span>
           </p>
           <p className="text-lg text-[#C0C0C0] mb-8 max-w-2xl mx-auto">
             Passionate about technology, innovation, and problem-solving
