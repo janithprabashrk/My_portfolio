@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, Github, Linkedin, Twitter,Globe } from "lucide-react";
 import emailjs from "@emailjs/browser";
 
 export default function ContactSection() {
@@ -81,6 +81,11 @@ export default function ContactSection() {
       href: "https://www.hackerrank.com/profile/janithprabash941",
       label: "HackerRank",
     },
+    {
+      icon: <Globe size={24} />,
+      href: "https://medium.com/@janithprabhash",
+      label: "Medium",
+    }
   ];
 
   return (
